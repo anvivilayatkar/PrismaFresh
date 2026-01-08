@@ -1,2 +1,0 @@
-# PrismaFresh
-Prismafresh Demo Site
