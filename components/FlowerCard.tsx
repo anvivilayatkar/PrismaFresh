@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Flower } from '../types';
-import { Plus, MessageCircle, ImageOff } from 'lucide-react';
+import { Plus, MessageCircle } from 'lucide-react';
 import { FLORIST_WHATSAPP_NUMBER } from '../constants';
 
 interface FlowerCardProps {
@@ -17,6 +17,14 @@ const FlowerCard: React.FC<FlowerCardProps> = ({ flower, onAddToCart }) => {
     window.open(`https://wa.me/${FLORIST_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
+  // Get initials for fallback
+  const initials = flower.name
+    .split(' ')
+    .map(n => n[0])
+    .join('')
+    .substring(0, 2)
+    .toUpperCase();
+
   return (
     <div className="group bg-white rounded-none md:rounded-lg overflow-hidden transition-all duration-500 hover:shadow-lg border border-transparent hover:border-moss-100 flex flex-col">
       <div className="relative overflow-hidden aspect-[4/5] bg-stone-100">
@@ -25,13 +33,17 @@ const FlowerCard: React.FC<FlowerCardProps> = ({ flower, onAddToCart }) => {
             src={flower.imageUrl} 
             alt={flower.name} 
             className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-            onError={() => setImgError(true)}
+            onError={(e) => {
+              console.error(`Failed to load image: ${flower.imageUrl}`);
+              setImgError(true);
+            }}
           />
         ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center text-stone-400 bg-stone-100 p-4 text-center">
-            <ImageOff size={32} className="mb-2 opacity-50" />
-            <span className="text-xs uppercase tracking-widest">Image not found</span>
-            <span className="text-[10px] mt-1 text-red-400 font-mono">{flower.imageUrl}</span>
+          <div className="w-full h-full flex flex-col items-center justify-center bg-moss-50/50 p-4 text-center">
+            <div className="w-16 h-16 rounded-full bg-moss-100 text-moss-800 flex items-center justify-center font-serif text-2xl mb-2">
+              {initials}
+            </div>
+            <span className="text-xs uppercase tracking-widest text-moss-800/60 font-medium">Mogra</span>
           </div>
         )}
         
