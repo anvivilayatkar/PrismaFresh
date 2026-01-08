@@ -1,18 +1,18 @@
-Mogra Florist Website - Image File Reference
+Mogra Florist Website - Required Image Files
 
-Please ensure the following images are present in your project root directory:
+Please ensure files with these EXACT names are uploaded to your project root folder:
 
-UI Elements:
-herobanner.png       -> Main hero background image
-philosophy_art.png   -> Image for the philosophy/about section
-studio_interior.png  -> Image for the contact page
+UI IMAGES:
+herobanner.png
+philosophy_art.png
+studio_interior.png
 
-Products:
-product_marigold.png -> Marigold (Genda)
-product_rose.png     -> Classic Red Roses
-product_mogra.png    -> Mogra Gajra
-product_lotus.png    -> Pink Lotus
-product_tuberose.png -> Tuberose Stems
-product_hibiscus.png -> Hibiscus Plant
-product_orchid.png   -> Orchid Stem
-product_mix.png      -> Summer Mix
+PRODUCT IMAGES:
+product_marigold.png
+product_rose.png
+product_mogra.png
+product_lotus.png
+product_tuberose.png
+product_hibiscus.png
+product_orchid.png
+product_mix.png
