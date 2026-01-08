@@ -3,7 +3,7 @@ import { Flower, CartItem, PageView } from './types';
 import { FLOWERS, FLORIST_WHATSAPP_NUMBER } from './constants';
 import { ASSETS } from './imageAssets';
 import FlowerCard from './components/FlowerCard';
-import { Menu, X, ShoppingBag, Leaf, Phone, MapPin, Instagram, Facebook, Trash2, ArrowRight } from 'lucide-react';
+import { Menu, X, ShoppingBag, Leaf, Phone, MapPin, Instagram, Facebook, Trash2, ArrowRight, ImageOff } from 'lucide-react';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<PageView>('home');
@@ -14,6 +14,11 @@ const App: React.FC = () => {
   // Simplified Form states for order
   const [customerName, setCustomerName] = useState('');
   const [specialRequest, setSpecialRequest] = useState('');
+
+  // Image Error States
+  const [heroError, setHeroError] = useState(false);
+  const [philosophyError, setPhilosophyError] = useState(false);
+  const [studioError, setStudioError] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -130,13 +135,22 @@ const App: React.FC = () => {
         {currentPage === 'home' && (
           <div className="animate-fade-in">
             {/* Minimal Hero */}
-            <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+            <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-stone-900">
               <div className="absolute inset-0 z-0">
-                <img 
-                  src={ASSETS.HERO_BANNER}
-                  alt="Minimal Flower Aesthetics" 
-                  className="w-full h-full object-cover opacity-90"
-                />
+                {!heroError ? (
+                  <img 
+                    src={ASSETS.HERO_BANNER}
+                    alt="Minimal Flower Aesthetics" 
+                    className="w-full h-full object-cover opacity-90"
+                    onError={() => setHeroError(true)}
+                  />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center bg-moss-900 opacity-90">
+                     <ImageOff size={64} className="text-white/20 mb-4" />
+                     <p className="text-white/40 uppercase tracking-widest text-sm">Banner Image Not Found</p>
+                     <p className="text-white/20 text-xs font-mono mt-2">{ASSETS.HERO_BANNER}</p>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-stone-900/10"></div>
               </div>
               
@@ -182,12 +196,20 @@ const App: React.FC = () => {
             <section className="py-24 bg-moss-900 text-sand-50 px-6">
               <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
                 <div className="md:w-1/2 relative">
-                   <div className="aspect-[3/4] overflow-hidden">
-                     <img 
-                      src={ASSETS.PHILOSOPHY_ART} 
-                      alt="Minimal Florist Art" 
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
-                    />
+                   <div className="aspect-[3/4] overflow-hidden bg-moss-800">
+                     {!philosophyError ? (
+                       <img 
+                        src={ASSETS.PHILOSOPHY_ART} 
+                        alt="Minimal Florist Art" 
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
+                        onError={() => setPhilosophyError(true)}
+                      />
+                     ) : (
+                       <div className="w-full h-full flex flex-col items-center justify-center text-moss-700">
+                          <ImageOff size={48} className="mb-2" />
+                          <span className="text-xs uppercase tracking-widest">Image Missing</span>
+                       </div>
+                     )}
                    </div>
                 </div>
                 <div className="md:w-1/2">
@@ -341,7 +363,19 @@ const App: React.FC = () => {
                 </div>
 
                 <div className="aspect-[3/4] bg-stone-200 overflow-hidden relative">
-                   <img src={ASSETS.STUDIO_INTERIOR} alt="Mogra Studio" className="absolute inset-0 w-full h-full object-cover" />
+                   {!studioError ? (
+                     <img 
+                       src={ASSETS.STUDIO_INTERIOR} 
+                       alt="Mogra Studio" 
+                       className="absolute inset-0 w-full h-full object-cover" 
+                       onError={() => setStudioError(true)}
+                     />
+                   ) : (
+                     <div className="w-full h-full flex flex-col items-center justify-center text-stone-400">
+                        <ImageOff size={48} className="mb-2" />
+                        <span className="text-xs uppercase tracking-widest">Studio Image Missing</span>
+                     </div>
+                   )}
                 </div>
              </div>
           </div>
