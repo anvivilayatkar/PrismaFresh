@@ -22,7 +22,6 @@ const FlowerCard: React.FC<FlowerCardProps> = ({ flower, onAddToCart }) => {
         <img 
           src={flower.imageUrl} 
           alt={flower.name} 
-          loading="lazy"
           className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
         />
         {/* Hover Overlay */}
