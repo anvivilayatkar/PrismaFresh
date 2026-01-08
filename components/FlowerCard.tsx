@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Flower } from '../types';
-import { Plus, MessageCircle } from 'lucide-react';
+import { Plus, MessageCircle, ImageOff } from 'lucide-react';
 import { FLORIST_WHATSAPP_NUMBER } from '../constants';
 
 interface FlowerCardProps {
@@ -9,6 +9,7 @@ interface FlowerCardProps {
 }
 
 const FlowerCard: React.FC<FlowerCardProps> = ({ flower, onAddToCart }) => {
+  const [imgError, setImgError] = useState(false);
   
   const handleQuickOrder = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -19,11 +20,21 @@ const FlowerCard: React.FC<FlowerCardProps> = ({ flower, onAddToCart }) => {
   return (
     <div className="group bg-white rounded-none md:rounded-lg overflow-hidden transition-all duration-500 hover:shadow-lg border border-transparent hover:border-moss-100 flex flex-col">
       <div className="relative overflow-hidden aspect-[4/5] bg-stone-100">
-        <img 
-          src={flower.imageUrl} 
-          alt={flower.name} 
-          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-        />
+        {!imgError ? (
+          <img 
+            src={flower.imageUrl} 
+            alt={flower.name} 
+            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center text-stone-400 bg-stone-100 p-4 text-center">
+            <ImageOff size={32} className="mb-2 opacity-50" />
+            <span className="text-xs uppercase tracking-widest">Image not found</span>
+            <span className="text-[10px] mt-1 text-red-400 font-mono">{flower.imageUrl}</span>
+          </div>
+        )}
+        
         {/* Hover Overlay */}
         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
           <button 
