@@ -10,7 +10,7 @@ export const ASSETS = {
   PRODUCT_MOGRA: 'product_mogra.png',
   PRODUCT_LOTUS: 'product_lotus.png',
   PRODUCT_TUBEROSE: 'product_tuberose.png',
-  PRODUCT_HIBISCUS: 'product_hibiscus.png',
+  PRODUCT_HIBISCUS: product_hibiscus(2).png',
   PRODUCT_ORCHID: 'product_orchid.png',
   PRODUCT_MIX: 'product_mix.png',
 };
